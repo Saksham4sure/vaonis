@@ -47,3 +47,47 @@ export const productItems = [
         button2:"Buy",
     },
 ];
+
+export const social = [
+    {text: "Facebook"},
+    {text: "Instagram"},
+    {text: "LinkedIn"},
+    {text: "YouTube"},
+];
+
+export const support = [
+    {sup: "Tutorials & documents"},
+    {sup: "Product Support"},
+    {sup: "Request a callback"},
+    {sup: "Register my product"},
+];
+
+export const technology = [
+    {text: "Smart telescopes benefits"},
+    {text: "Astrophotography 2.0"},
+    {text: "ENS technologies"},
+    {text: "LumENS"},
+];
+
+export const about = [
+    {text: "Our odyssey"},
+    {text: "Our blog"},
+];
+
+const socialLinks = [
+    { 
+        svg: ""
+    },
+    { 
+        svg: ""
+    },
+    { 
+        svg: ""
+    },
+    { 
+        svg: ""
+    },
+    { 
+        svg: ""
+    },
+];
