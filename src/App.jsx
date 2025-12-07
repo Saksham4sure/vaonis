@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <div className="overflow-x-hidden">
+      <div className="">
         <SmoothScroll />
         <Navbar />
         <Hero />
