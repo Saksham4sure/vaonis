@@ -1,5 +1,4 @@
 import React from 'react'
-import { productItems } from '../constants'
 
 
 const ProductCard = ({name, desc, src, button1, button2}) => {

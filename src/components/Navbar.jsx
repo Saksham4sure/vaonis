@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { navLinks } from "../constants";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 
-const Navbar = () => {
+const Navbar = ({ startAnimation = false }) => {
     const [isOpen, setIsOpen] = useState(false);
     const menu = useRef(null);
     const icon = useRef(null);
@@ -12,6 +12,8 @@ const Navbar = () => {
     const white = useRef(null);
     const black = useRef(null);
     const navtext = useRef(null);
+    const desktopNav = useRef(null);
+    const mobileNav = useRef(null);
 
     useGSAP(() => {
         gsap.set(menu.current, {
@@ -35,6 +37,24 @@ const Navbar = () => {
         }, "<")
     });
 
+    useGSAP(() => {
+        if (!startAnimation) {
+            gsap.set([desktopNav.current, mobileNav.current], {
+                yPercent: -100,
+                opacity: 0,
+            });
+            return;
+        }
+
+        gsap.to([desktopNav.current, mobileNav.current], {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            delay: 0.2,
+        });
+    }, [startAnimation]);
+
     const toggleMenu = () => {
         if (isOpen) {
             tl.current.reverse();
@@ -51,7 +71,8 @@ const Navbar = () => {
 
     return (
         <div className="navbar">
-            <div className="z-[999] bg-[#00000091] backdrop-blur-xl text-[#ffffff] px-24 py-4 justify-between items-center fixed w-full hidden lg:flex">
+            <div ref={desktopNav} className="z-[999] bg-[#00000091] backdrop-blur-xl text-[#ffffff] px-24 py-4 justify-between items-center fixed w-full hidden lg:flex">
+
                 <div className="flex gap-10 items-center">
                     <svg width="119" height="14" viewBox="0 0 119 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-1col ipad:w-[120px] max-w-[120px] h-auto">
                         <g class="logo-vaonis-vanis">
@@ -108,7 +129,7 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <div className={`z-[999] ${isOpen ? "bg-[#ffffff91]" : "bg-[#00000091]"} backdrop-blur-xl duration-1000 text-[#FFFFFF] px-2 py-4 flex justify-between items-center fixed w-full lg:hidden`}>
+            <div ref={mobileNav} className={`z-[999] ${isOpen ? "bg-[#ffffff91]" : "bg-[#00000091]"} backdrop-blur-xl duration-1000 text-[#FFFFFF] px-2 py-4 flex justify-between items-center fixed w-full lg:hidden`}>
                 <div onClick={toggleMenu} ref={icon} className="w-1/3 flex justify-start">
                     <svg class="w-36 h-auto  fill-pictonblue" viewBox="40 0 113 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill="#00A6E2" class="logo-vaonis-o" d="M56.5633 14.1568C54.8416 14.1568 53.4079 13.5681 52.187 12.3599C50.9693 11.1424 50.3776 9.71836 50.3776 8.00154C50.3776 6.28472 50.9693 4.86072 52.1839 3.64323C53.4079 2.4319 54.8416 1.84319 56.5633 1.84319C58.2851 1.84319 59.7188 2.4319 60.9428 3.64015C62.1605 4.85764 62.7522 6.28472 62.7522 7.99846C62.7522 9.71219 62.1605 11.1393 60.9428 12.3568C59.7188 13.565 58.2851 14.1537 56.5633 14.1537M56.5727 0C54.3658 0 52.4562 0.789058 50.891 2.3456C49.3289 3.90214 48.5338 5.80081 48.5244 8.00154C48.5244 10.1992 49.3195 12.1009 50.8816 13.6575C52.4437 15.214 54.3564 16.0031 56.5633 16.0031C58.7703 16.0031 60.683 15.214 62.2451 13.6575C63.8103 12.1009 64.6023 10.1961 64.6023 8.00154C64.6085 5.80389 63.8197 3.90214 62.2545 2.3456C60.6955 0.789058 58.7797 0 56.5727 0Z" />

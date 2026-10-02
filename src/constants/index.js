@@ -74,7 +74,7 @@ export const about = [
     {text: "Our blog"},
 ];
 
-const socialLinks = [
+export const socialLinks = [
     { 
         svg: ""
     },
