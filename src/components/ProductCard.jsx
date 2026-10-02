@@ -3,8 +3,9 @@ import React from 'react'
 
 const ProductCard = ({name, desc, src, button1, button2}) => {
   return (
-    <div className='relative w-[90vw] h-[60vh] lg:w-[50vw] lg:h-auto font-extralight'>
+    <div className='relative w-full max-w-md lg:max-w-none lg:w-1/2 h-[60vh] lg:h-auto font-extralight'>
         <img className='rounded-xl h-full w-full object-cover' src={src} />
+
         <div className='absolute inset-0 text-white flex flex-col px-4 text-center items-center lg:pt-10'>
             <h1 className='uppercase  text-2xl lg:text-4xl tracking-[10px] pb-3 pt-5'>{name}</h1>
             <p className=' text-sm lg:text-xl'>{desc}</p>

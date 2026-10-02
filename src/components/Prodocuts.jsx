@@ -6,7 +6,8 @@ const Prodocuts = () => {
     return (
         <div className='border-t border-stone-300 py-10 lg:mb-16'>
             <h1 className=' flex justify-start px-5 lg:justify-center w-full text-center text-xl lg:text-5xl pt-5'>Discover our range of products</h1>
-            <div className='flex items-center justify-center flex-col lg:flex-row p-[4vh] gap-2 pt-5 lg:pt-20'>
+            <div className='flex items-center justify-center flex-col lg:flex-row px-4 lg:px-10 gap-4 pt-5 lg:pt-20 max-w-7xl mx-auto'>
+
                 {
                     productItems.map(({ name, desc, src, button1, button2 }) => (
                         <ProductCard

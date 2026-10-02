@@ -14,8 +14,8 @@ const Footer = () => {
             scrollTrigger: {
                 trigger: footerRef.current,
                 start: "top 85%",
-                end: "bottom bottom",
-                toggleActions: "play reverse play reverse",
+                end: "bottom top",
+                toggleActions: "play none none reverse",
             }
         });
 
@@ -61,7 +61,8 @@ const Footer = () => {
     }, { scope: footerRef });
 
     return (
-        <div ref={footerRef} className='w-[100vw] pt-20 pb-10 px-10 select-none overflow-hidden'>
+        <div ref={footerRef} className='w-full max-w-full pt-20 pb-10 px-6 sm:px-10 select-none overflow-hidden'>
+
             {/* Logo Section bounded by animated borders */}
             <div className='footer-divider h-[1px] bg-stone-300 lg:mx-[10vw] will-change-transform'></div>
             <div className='footer-logo flex items-center justify-center lg:mx-[10vw] py-10 will-change-transform'>

@@ -34,7 +34,7 @@ function App() {
           onComplete={handleLoaderComplete}
         />
       )}
-      <div className="relative">
+      <div className="relative w-full">
         <Navbar startAnimation={startLanding} />
         <Hero startAnimation={startLanding} />
         <Description />

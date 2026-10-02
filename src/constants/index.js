@@ -91,3 +91,41 @@ export const socialLinks = [
         svg: ""
     },
 ];
+
+export const heroData = [
+    {
+        img: "https://vaonis.com/cdn/shop/files/Atlas_-_Next_chapter_Teaser_Still_2_16-9.png?format=webp&v=1790664955&width=1280",
+        title: "Atlas",
+        subTitle: "For years, we imagined the next chapter. On October 15, ten years to the day, Atlas steps out of the dark.",
+        buttonText: "Join the list",
+        isPro: false,
+    },
+    {
+        img: "https://vaonis.com/cdn/shop/files/KV_-_Vpro_2.jpg?format=webp&v=1775920593&width=1280",
+        title: "Vespera",
+        subTitle: "Astrophotography, redefined.",
+        buttonText: "",
+        isPro: true,
+    },
+    {
+        img: "https://vaonis.com/cdn/shop/files/KV_-_V3.jpg?format=webp&v=1775920595&width=1280",
+        title: "Vespera III",
+        subTitle: "The all-in-one premium smart telescope.",
+        buttonText: "Discover",
+        isPro: false,
+    },
+    {
+        img: "https://vaonis.com/cdn/shop/files/VAONIS-V2-HORIZONTAL-Spring_Sale.jpg?format=webp&v=1747660909&width=1280",
+        title: "Vespera II",
+        subTitle: "Designed for discovery, built to last. Now guaranteed for 3 years.",
+        buttonText: "Discover",
+        isPro: false,
+    },
+    {
+        img: "https://vaonis.com/cdn/shop/files/SAS.00_00_12_16.Still003.png?format=webp&v=1767681331&width=1280",
+        title: "Hyperia",
+        subTitle: "The all-in-one smart observatory.",
+        buttonText: "Discover",
+        isPro: false,
+    },
+]

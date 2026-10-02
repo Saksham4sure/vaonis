@@ -78,7 +78,7 @@ const Hero = ({ startAnimation = false }) => {
           alt="Vaonis Vespera II"
         />
 
-        <div className="text-[#fff] absolute inset-0 flex flex-col justify-end items-center lg:items-start lg:justify-center lg:ml-36 mb-20 pointer-events-auto">
+        <div className="text-[#fff] absolute inset-0 flex flex-col justify-end items-center lg:items-start lg:justify-center lg:ml-36 mb-30 lg:mb-0 pointer-events-auto">
           {/* Masked Title */}
           <div className="overflow-hidden pb-2 lg:pb-3">
             <h1
@@ -119,7 +119,7 @@ const Hero = ({ startAnimation = false }) => {
         {/* Bottom indicator bar */}
         <div
           ref={footerRef}
-          className="text-stone-300 absolute inset-0 w-full items-end justify-between px-32 mb-28 hidden lg:flex pointer-events-none"
+          className="text-stone-300 absolute inset-0 w-full items-end justify-between px-32 mb-10 hidden lg:flex pointer-events-none"
         >
           <div>
             <p className="text-[13px] text-stone-400 mb-28 pl-5 cursor-default tracking-wide font-mono">
