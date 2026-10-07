@@ -230,8 +230,6 @@ const Hero = ({ startAnimation = false }) => {
             src={item.img}
             alt={item.title}
           />
-          {/* Subtle gradient vignette to ensure white typography is always readable */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/45 pointer-events-none" />
         </div>
       ))}
 
