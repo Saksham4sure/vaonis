@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { heroData } from "../constants";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const slideDuration = 4000; // 4 seconds per slide
+const scrollCueText = "Scroll to discover • Scroll to discover • ";
 
 const Hero = ({ startAnimation = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,33 +19,35 @@ const Hero = ({ startAnimation = false }) => {
   const subRef = useRef(null);
   const btnRef = useRef(null);
   const indicatorRef = useRef(null);
+  const scrollCueRef = useRef(null);
 
   const slideRefs = useRef([]);
   const imgRefs = useRef([]);
   const prevIndexRef = useRef(null);
 
   const currentSlide = heroData[currentIndex];
-  const slideDuration = 5500; // 5.5 seconds per slide
 
-  // Auto-advance timer with progress bar
+  // Auto-advance timer with progress bar (restarts whenever the slide changes)
   useEffect(() => {
     if (!startAnimation) return;
 
-    const intervalTime = 50;
-    const step = (intervalTime / slideDuration) * 100;
+    const start = performance.now();
 
     const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setCurrentIndex((curr) => (curr + 1) % heroData.length);
-          return 0;
-        }
-        return prev + step;
-      });
-    }, intervalTime);
+      const elapsed = ((performance.now() - start) / slideDuration) * 100;
+
+      if (elapsed >= 100) {
+        clearInterval(timer);
+        setProgress(0);
+        setCurrentIndex((curr) => (curr + 1) % heroData.length);
+        return;
+      }
+
+      setProgress(elapsed);
+    }, 50);
 
     return () => clearInterval(timer);
-  }, [startAnimation, currentIndex, slideDuration]);
+  }, [startAnimation, currentIndex]);
 
   // Click to jump to specific slide
   const handleSelectSlide = (idx) => {
@@ -210,6 +218,32 @@ const Hero = ({ startAnimation = false }) => {
     { dependencies: [startAnimation, currentIndex], scope: heroRef }
   );
 
+  // Scroll cue: entrance after loader, then lifts & fades out as the hero scrolls away
+  useGSAP(
+    () => {
+      if (!startAnimation) return;
+
+      gsap.fromTo(
+        ".scroll-cue-inner",
+        { opacity: 0, scale: 0.6, rotate: -120 },
+        { opacity: 1, scale: 1, rotate: 0, duration: 1.4, ease: "expo.out", delay: 0.5 }
+      );
+
+      gsap.to(scrollCueRef.current, {
+        yPercent: -80,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "35% top",
+          scrub: true,
+        },
+      });
+    },
+    { dependencies: [startAnimation], scope: heroRef }
+  );
+
   return (
     <div ref={heroRef} className="h-[100vh] w-full overflow-hidden select-none relative bg-black">
       {/* Background Images Cross-wipe Carousel */}
@@ -342,12 +376,44 @@ const Hero = ({ startAnimation = false }) => {
         </div>
       </div>
 
-      {/* Bottom-right scroll prompt */}
-      <div className="text-stone-300 absolute right-6 sm:right-12 lg:right-24 bottom-8 lg:bottom-10 z-30 hidden sm:flex items-center gap-2 cursor-default select-none pointer-events-none">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#36A6E2] animate-bounce" />
-        <p className="text-[12px] tracking-wider uppercase font-mono text-stone-300">
-          Scroll to discover
-        </p>
+      {/* Bottom-right scroll cue: rotating circular text + looping arrow */}
+      <div
+        ref={scrollCueRef}
+        className="absolute right-6 sm:right-12 lg:right-24 bottom-8 lg:bottom-10 z-30 hidden sm:block pointer-events-none select-none will-change-transform"
+      >
+        <div className="scroll-cue-inner relative w-28 h-28 lg:w-32 lg:h-32 opacity-0">
+          <svg
+            viewBox="0 0 100 100"
+            className="absolute inset-0 w-full h-full animate-[spin_14s_linear_infinite] motion-reduce:animate-none"
+            aria-hidden="true"
+          >
+            <defs>
+              <path id="scroll-cue-circle" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
+            </defs>
+            <text className="fill-white/85 uppercase font-mono" style={{ fontSize: 8 }}>
+              <textPath href="#scroll-cue-circle" textLength="238" lengthAdjust="spacing">{scrollCueText}</textPath>
+            </text>
+          </svg>
+
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-full border border-white/30 bg-white/5 backdrop-blur-sm overflow-hidden flex items-center justify-center">
+              <svg
+                className="w-4 h-4 text-[#36A6E2] animate-[scroll-cue_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 5v14" />
+                <path d="m19 12-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <span className="sr-only">Scroll to discover</span>
       </div>
     </div>
   );

@@ -9,6 +9,23 @@ body {
   overflow-x: clip;
 }
 
+/* Hero scroll cue: arrow drops in, holds, then exits downward */
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-160%);
+    opacity: 0;
+  }
+  35%,
+  65% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(160%);
+    opacity: 0;
+  }
+}
+
 
 
 

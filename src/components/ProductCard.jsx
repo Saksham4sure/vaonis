@@ -3,10 +3,11 @@ import React from 'react'
 
 const ProductCard = ({name, desc, src, button1, button2}) => {
   return (
-    <div className='relative w-full max-w-md lg:max-w-none lg:w-1/2 h-[60vh] lg:h-auto font-extralight'>
-        <img className='rounded-xl h-full w-full object-cover' src={src} />
+    <div className='product-card relative w-full max-w-md lg:max-w-none lg:w-1/2 h-[60vh] lg:h-auto font-extralight rounded-xl overflow-hidden will-change-transform'>
+        {/* Scaled up so the scroll parallax drift never reveals the card edges */}
+        <img className='product-card-img h-full w-full object-cover scale-[1.2] will-change-transform' src={src} alt={name} />
 
-        <div className='absolute inset-0 text-white flex flex-col px-4 text-center items-center lg:pt-10'>
+        <div className='product-card-content absolute inset-0 text-white flex flex-col px-4 text-center items-center lg:pt-10'>
             <h1 className='uppercase  text-2xl lg:text-4xl tracking-[10px] pb-3 pt-5'>{name}</h1>
             <p className=' text-sm lg:text-xl'>{desc}</p>
             <div className='flex gap-3 items-center justify-center pt-3'>
